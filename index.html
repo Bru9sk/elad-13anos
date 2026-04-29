@@ -944,26 +944,25 @@
     </div>
   </section>
 
-  <!-- HIGHLIGHTS -->
-  <section>
-    <div class="section-header">
+
+ <!-- ===== DESTAQUES SLIDESHOW ===== -->
+   <div class="section-header">
       <span class="section-label" data-lang-pt="✦ GALERIA ESPECIAL ✦" data-lang-fr="✦ GALERIE SPÉCIALE ✦" data-lang-en="✦ SPECIAL GALLERY ✦">✦ GALERIA ESPECIAL ✦</span>
       <h2 class="section-title" data-lang-pt="DESTAQUES" data-lang-fr="TEMPS FORTS" data-lang-en="HIGHLIGHTS">DESTAQUES</h2>
       <div class="section-line"></div>
     </div>
 
-    <div class="highlights-grid" id="highlights-gallery">
-      <div class="highlight-item"><img src="https://i.ibb.co/5Wg2PgK2/d001.jpg" alt="Destaque 1" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/pByMHmCL/d002.jpg" alt="Destaque 2" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/HTJrZF5v/d003.jpg" alt="Destaque 3" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/Mkndd96W/d004.jpg" alt="Destaque 4" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/RpKnw9Gs/d006.jpg" alt="Destaque 5" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/k2NLxhRN/d007.jpg" alt="Destaque 6" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/zWpF71T8/d008.jpg" alt="Destaque 7" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/N2V49VkT/d009.jpg" alt="Destaque 8" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/ynxCGsy4/d016.jpg" alt="Destaque 9" onclick="openLightbox(this)"></div>
-    </div>
-  </section>
+        <div class="relative max-w-5xl mx-auto" style="aspect-ratio:16/7;background:#111;overflow:hidden;">
+            <img id="slide-a" src="" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity 0.9s ease;filter:brightness(0.85);">
+            <img id="slide-b" src="" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.9s ease;filter:brightness(0.85);">
+
+            <button onclick="slideshowNav(-1)" style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,0.55);border:1px solid rgba(201,168,68,0.4);color:#c9a844;font-size:1.4rem;width:42px;height:42px;cursor:pointer;display:flex;align-items:center;justify-content:center;">&#8249;</button>
+            <button onclick="slideshowNav(1)"  style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,0.55);border:1px solid rgba(201,168,68,0.4);color:#c9a844;font-size:1.4rem;width:42px;height:42px;cursor:pointer;display:flex;align-items:center;justify-content:center;">&#8250;</button>
+
+            <div id="slide-counter" style="position:absolute;top:0.8rem;right:1.2rem;z-index:10;font-family:monospace;font-size:0.6rem;letter-spacing:3px;color:rgba(201,168,68,0.85);"></div>
+            <div id="slide-dots" style="position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:10;"></div>
+        </div>
+    </section>
 
   <!-- TABS -->
   <section class="tabs-section">
@@ -1283,7 +1282,7 @@
   <div class="inner-content">
     <div class="inner-feature">
       <div class="feature-photo">
-        <img src="https://i.ibb.co/Xr3dBNj3/Familia001.png" alt="Família">
+        <img src="https://i.ibb.co/nsGZbYbS/Familia014.png" alt="Família">
       </div>
       <div class="feature-text">
         <span class="feature-label" data-lang-pt="A ESSÊNCIA DE TUDO" data-lang-fr="L'ESSENCE DE TOUT" data-lang-en="THE ESSENCE OF EVERYTHING">A ESSÊNCIA DE TUDO</span>
@@ -1579,6 +1578,22 @@
 </div>
 
 <script>
+  // ============================================================
+        // CONFIGURAÇÃO DE FOTOS — edite aqui os URLs
+        // ============================================================
+        const slideshowImages = [
+            'https://i.ibb.co/5Wg2PgK2/d001.jpg',
+            'https://i.ibb.co/pByMHmCL/d002.jpg',
+            'https://i.ibb.co/HTJrZF5v/d003.jpg',
+            'https://i.ibb.co/Mkndd96W/d004.jpg',
+            'https://i.ibb.co/RpKnw9Gs/d006.jpg',
+            'https://i.ibb.co/k2NLxhRN/d007.jpg',
+            'https://i.ibb.co/zWpF71T8/d008.jpg',
+            'https://i.ibb.co/N2V49VkT/d009.jpg',
+            'https://i.ibb.co/ynxCGsy4/d016.jpg'
+        ];
+
+  
   // ---- LANGUAGE ----
   let currentLang = 'pt';
 
@@ -1624,6 +1639,64 @@
     document.getElementById('mobileMenu').classList.toggle('open');
   }
 
+// ---------- SLIDESHOW ----------
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+   const imgs   = shuffle(slideshowImages);
+        let   sIdx   = 0;
+        let   active = 'a'; // qual img está visível
+        const elA    = document.getElementById('slide-a');
+        const elB    = document.getElementById('slide-b');
+        const dots   = document.getElementById('slide-dots');
+        const ctr    = document.getElementById('slide-counter');
+
+        // pré-carrega e cria dots
+        imgs.forEach((src, i) => {
+            new Image().src = src;
+            const d = document.createElement('div');
+            d.style.cssText = `width:7px;height:7px;border-radius:50%;cursor:pointer;transition:background .3s;background:${i===0?'#c9a844':'rgba(255,255,255,0.3)'};`;
+            d.onclick = () => goTo(i);
+            dots.appendChild(d);
+        });
+   function updateDots(i) {
+            dots.querySelectorAll('div').forEach((d, idx) => {
+                d.style.background = idx === i ? '#c9a844' : 'rgba(255,255,255,0.3)';
+            });
+            ctr.textContent = `${String(i+1).padStart(2,'0')} / ${String(imgs.length).padStart(2,'0')}`;
+        }
+
+        function goTo(i) {
+            sIdx = (i + imgs.length) % imgs.length;
+            const next = active === 'a' ? elB : elA;
+            const curr = active === 'a' ? elA : elB;
+            next.src     = imgs[sIdx];
+            next.style.opacity = '1';
+            curr.style.opacity = '0';
+            active = active === 'a' ? 'b' : 'a';
+            updateDots(sIdx);
+        }
+
+        function slideshowNav(dir) { goTo(sIdx + dir); }
+
+        // inicializa
+        elA.src = imgs[0];
+        elB.src = imgs[1] || imgs[0];
+        updateDots(0);
+
+        // avança a cada 4s
+        let timer = setInterval(() => goTo(sIdx + 1), 4000);
+
+        // reinicia o timer ao clicar nas setas/dots
+        document.querySelectorAll('#slide-dots div').forEach(d => {
+            d.addEventListener('click', () => { clearInterval(timer); timer = setInterval(() => goTo(sIdx + 1), 4000); });
+        });
+  
   // ---- LIGHTBOX ----
   let allImages = [];
   let currentIndex = 0;
