@@ -1,1695 +1,260 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elad Lyron | Bar-Mitzvah • Men in Black</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --black: #050505;
-    --dark: #0d0d0d;
-    --charcoal: #1a1a1a;
-    --mid: #2c2c2c;
-    --silver: #8a8a8a;
-    --light-silver: #c0c0c0;
-    --white: #f0f0f0;
-    --gold: #c9a84c;
-    --gold-light: #e8c97a;
-    --neon: #e8e8e8;
-    --accent: #d4af37;
-    --red: #cc2200;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'Rajdhani', sans-serif;
-    overflow-x: hidden;
-    cursor: default;
-  }
-
-  /* SCANLINE OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.03) 2px,
-      rgba(0,0,0,0.03) 4px
-    );
-    pointer-events: none;
-    z-index: 9999;
-  }
-
-  /* HEADER */
-  #header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    background: rgba(5,5,5,0.95);
-    border-bottom: 1px solid rgba(201,168,76,0.3);
-    backdrop-filter: blur(10px);
-    padding: 0 2rem;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .header-logo {
-    height: 44px;
-    width: auto;
-    filter: brightness(1.1);
-  }
-
-  .header-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1px;
-  }
-
-  .header-title {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.4rem;
-    letter-spacing: 6px;
-    color: var(--gold);
-    line-height: 1;
-  }
-
-  .header-sub {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.55rem;
-    letter-spacing: 3px;
-    color: var(--silver);
-    text-transform: uppercase;
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  /* LANGUAGE SWITCHER */
-  .lang-switcher {
-    display: flex;
-    gap: 4px;
-  }
-
-  .lang-btn {
-    background: transparent;
-    border: 1px solid var(--mid);
-    color: var(--silver);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.65rem;
-    padding: 4px 8px;
-    cursor: pointer;
-    letter-spacing: 2px;
-    transition: all 0.2s;
-  }
-
-  .lang-btn.active, .lang-btn:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-    background: rgba(201,168,76,0.1);
-  }
-
-  /* NAV */
-  nav {
-    display: flex;
-    gap: 0;
-  }
-
-  .nav-link {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 3px;
-    color: var(--silver);
-    text-decoration: none;
-    padding: 8px 16px;
-    border-right: 1px solid var(--mid);
-    transition: all 0.2s;
-    cursor: pointer;
-    text-transform: uppercase;
-  }
-
-  .nav-link:first-child { border-left: 1px solid var(--mid); }
-  .nav-link:hover, .nav-link.active {
-    color: var(--gold);
-    background: rgba(201,168,76,0.08);
-  }
-
-  /* HAMBURGER */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 4px;
-  }
-  .hamburger span {
-    display: block;
-    width: 22px; height: 2px;
-    background: var(--silver);
-    transition: all 0.3s;
-  }
-
-  /* PAGES */
-  .page {
-    display: none;
-    min-height: 100vh;
-    padding-top: 70px;
-  }
-
-  .page.active { display: block; }
-
-  /* ===== HOME PAGE ===== */
-  .hero {
-    position: relative;
-    height: 92vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: var(--black);
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url('https://i.ibb.co/5Wg2PgK2/d001.jpg');
-    background-size: cover;
-    background-position: center;
-    filter: brightness(0.25) contrast(1.2);
-    transform: scale(1.05);
-    animation: heroZoom 12s ease-in-out infinite alternate;
-  }
-
-  @keyframes heroZoom {
-    from { transform: scale(1.05); }
-    to { transform: scale(1.12); }
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(5,5,5,0.2) 0%,
-      rgba(5,5,5,0.1) 40%,
-      rgba(5,5,5,0.7) 80%,
-      rgba(5,5,5,1) 100%
-    );
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    animation: fadeUp 1.2s ease forwards;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-badge {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 6px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    display: block;
-    animation: blink 3s ease-in-out infinite;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-  }
-
-  .hero-name {
-    font-family: 'Bebas Neue', cursive;
-    font-size: clamp(4rem, 12vw, 10rem);
-    letter-spacing: 12px;
-    line-height: 0.85;
-    color: var(--white);
-    text-shadow: 0 0 60px rgba(201,168,76,0.3);
-  }
-
-  .hero-name span {
-    color: var(--gold);
-  }
-
-  .hero-event {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1rem, 3vw, 1.8rem);
-    font-style: italic;
-    font-weight: 300;
-    letter-spacing: 8px;
-    color: var(--light-silver);
-    margin-top: 0.8rem;
-  }
-
-  .hero-divider {
-    width: 120px;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-    margin: 1.5rem auto;
-  }
-
-  .hero-date {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 4px;
-    color: var(--silver);
-  }
-
-  .scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    animation: bounce 2s ease-in-out infinite;
-  }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(8px); }
-  }
-
-  .scroll-indicator span {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 3px;
-    color: var(--silver);
-  }
-
-  .scroll-indicator::after {
-    content: '▼';
-    color: var(--gold);
-    font-size: 0.6rem;
-  }
-
-  /* HIGHLIGHTS SECTION */
-  .section-header {
-    text-align: center;
-    padding: 5rem 2rem 2rem;
-    position: relative;
-  }
-
-  .section-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 6px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    display: block;
-  }
-
-  .section-title {
-    font-family: 'Bebas Neue', cursive;
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    letter-spacing: 8px;
-    color: var(--white);
-  }
-
-  .section-line {
-    width: 80px;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-    margin: 1rem auto;
-  }
-
-  /* HIGHLIGHTS MASONRY */
-  .highlights-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-    padding: 0 4px 4px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  /* TABS SECTION */
-  .tabs-section {
-    padding: 5rem 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .tabs-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0;
-    border-bottom: 1px solid var(--mid);
-    margin-bottom: 3rem;
-  }
-
-  .tab-btn {
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid transparent;
-    color: var(--silver);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 3px;
-    padding: 12px 20px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    margin-bottom: -1px;
-  }
-
-  .tab-btn:hover, .tab-btn.active {
-    color: var(--gold);
-    border-bottom-color: var(--gold);
-  }
-
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-
-  /* GALLERY GRID */
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 4px;
-  }
-
-  .gallery-item {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 4/3;
-    cursor: pointer;
-    background: var(--charcoal);
-  }
-
-  .gallery-item img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease, filter 0.5s ease;
-    filter: brightness(0.85);
-  }
-
-  .gallery-item:hover img {
-    transform: scale(1.08);
-    filter: brightness(1);
-  }
-
-  /* ===== INNER PAGES ===== */
-  .inner-hero {
-    position: relative;
-    height: 55vh;
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
-  }
-
-  .inner-hero-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center top;
-    filter: brightness(0.3) contrast(1.2);
-  }
-
-  .inner-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(5,5,5,1) 0%, rgba(5,5,5,0.3) 60%, rgba(5,5,5,0.5) 100%);
-  }
-
-  .inner-hero-content {
-    position: relative;
-    z-index: 2;
-    padding: 3rem 4rem;
-    width: 100%;
-  }
-
-  .inner-badge {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 5px;
-    color: var(--gold);
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  .inner-title {
-    font-family: 'Bebas Neue', cursive;
-    font-size: clamp(3rem, 8vw, 7rem);
-    letter-spacing: 10px;
-    line-height: 0.9;
-    color: var(--white);
-  }
-
-  .inner-divider {
-    width: 60px;
-    height: 1px;
-    background: var(--gold);
-    margin: 1.5rem 0;
-  }
-
-  /* INNER PAGE LAYOUT */
-  .inner-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
-  }
-
-  .inner-feature {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-    margin-bottom: 5rem;
-  }
-
-  .inner-feature.reverse { direction: rtl; }
-  .inner-feature.reverse > * { direction: ltr; }
-
-  .feature-photo {
-    position: relative;
-  }
-
-  .feature-photo img {
-    width: 100%;
-    aspect-ratio: 4/5;
-    object-fit: cover;
-    display: block;
-    filter: brightness(0.9) contrast(1.05);
-  }
-
-  .feature-photo::before {
-    content: '';
-    position: absolute;
-    top: -12px; left: -12px;
-    right: 12px; bottom: 12px;
-    border: 1px solid rgba(201,168,76,0.3);
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  .feature-photo::after {
-    content: '';
-    position: absolute;
-    bottom: -12px; right: -12px;
-    top: 12px; left: 12px;
-    border: 1px solid rgba(201,168,76,0.15);
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  .feature-text {
-    padding: 2rem 0;
-  }
-
-  .feature-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 5px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .feature-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, var(--gold), transparent);
-    max-width: 80px;
-  }
-
-  .feature-heading {
-    font-family: 'Bebas Neue', cursive;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    letter-spacing: 6px;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 1.5rem;
-  }
-
-  .feature-body {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.15rem;
-    font-weight: 300;
-    line-height: 1.9;
-    color: var(--light-silver);
-  }
-
-  /* GALLERY SECTION TITLE */
-  .gallery-section-title {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.8rem;
-    letter-spacing: 6px;
-    color: var(--white);
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--mid);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .gallery-section-title span {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.55rem;
-    letter-spacing: 4px;
-    color: var(--gold);
-    font-weight: 400;
-  }
-
-  /* LIGHTBOX */
-  #lightbox {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.97);
-    z-index: 9998;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-
-  #lightbox.open {
-    display: flex;
-    animation: fadeIn 0.2s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  #lightbox img {
-    max-width: 92vw;
-    max-height: 92vh;
-    object-fit: contain;
-    cursor: default;
-    box-shadow: 0 0 60px rgba(0,0,0,0.8);
-  }
-
-  #lightbox-close {
-    position: absolute;
-    top: 1.5rem; right: 2rem;
-    color: var(--silver);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-
-  #lightbox-close:hover { color: var(--gold); }
-
-  #lightbox-prev, #lightbox-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(201,168,76,0.15);
-    border: 1px solid rgba(201,168,76,0.3);
-    color: var(--gold);
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.5rem;
-    padding: 12px 18px;
-    cursor: pointer;
-    transition: all 0.2s;
-    letter-spacing: 2px;
-  }
-
-  #lightbox-prev { left: 1rem; }
-  #lightbox-next { right: 1rem; }
-  #lightbox-prev:hover, #lightbox-next:hover {
-    background: rgba(201,168,76,0.3);
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--dark);
-    border-top: 1px solid var(--mid);
-    padding: 4rem 2rem 2rem;
-    text-align: center;
-  }
-
-  .footer-logo {
-    height: 50px;
-    width: auto;
-    filter: brightness(0.8);
-    margin-bottom: 2rem;
-  }
-
-  .footer-tagline {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    font-style: italic;
-    color: var(--silver);
-    margin-bottom: 2.5rem;
-    letter-spacing: 2px;
-  }
-
-  .footer-contacts {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-  }
-
-  .footer-contact {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-    transition: transform 0.2s;
-  }
-
-  .footer-contact:hover { transform: translateY(-2px); }
-
-  .footer-contact-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 4px;
-    color: var(--silver);
-    text-transform: uppercase;
-  }
-
-  .footer-contact-value {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 1px;
-  }
-
-  .footer-bottom {
-    border-top: 1px solid var(--mid);
-    padding-top: 1.5rem;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 3px;
-    color: var(--mid);
-    text-transform: uppercase;
-  }
-
-  /* CLASSIFIED STAMP */
-  .classified-bar {
-    background: repeating-linear-gradient(
-      45deg,
-      var(--black),
-      var(--black) 10px,
-      var(--charcoal) 10px,
-      var(--charcoal) 20px
-    );
-    border-top: 2px solid var(--gold);
-    border-bottom: 2px solid var(--gold);
-    text-align: center;
-    padding: 6px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 8px;
-    color: var(--gold);
-  }
-
-  /* MOBILE NAV MENU */
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    top: 70px; left: 0; right: 0;
-    background: rgba(5,5,5,0.98);
-    border-bottom: 1px solid var(--mid);
-    z-index: 999;
-    flex-direction: column;
-    padding: 1rem 0;
-  }
-
-  .mobile-menu.open { display: flex; }
-
-  .mobile-nav-link {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 4px;
-    color: var(--silver);
-    padding: 14px 2rem;
-    cursor: pointer;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    text-transform: uppercase;
-    transition: all 0.2s;
-  }
-
-  .mobile-nav-link:hover, .mobile-nav-link.active {
-    color: var(--gold);
-    background: rgba(201,168,76,0.06);
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    nav { display: none; }
-    .hamburger { display: flex; }
-
-    .highlights-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .highlight-item:nth-child(1),
-    .highlight-item:nth-child(4),
-    .highlight-item:nth-child(7) {
-      grid-column: span 1;
-      aspect-ratio: 1/1;
-    }
-
-    .inner-feature {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .inner-feature.reverse { direction: ltr; }
-
-    .inner-hero-content { padding: 2rem; }
-
-    .header-title { font-size: 1rem; letter-spacing: 3px; }
-  }
-
-  @media (max-width: 600px) {
-    .highlights-grid { grid-template-columns: 1fr; }
-    .highlight-item { aspect-ratio: 4/3 !important; grid-column: span 1 !important; }
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-    .footer-contacts { gap: 1.5rem; }
-  }
-
-  /* AGENT ID CARD */
-  .agent-card {
-    background: var(--charcoal);
-    border: 1px solid var(--mid);
-    padding: 1.5rem;
-    max-width: 380px;
-    margin: 2rem 0;
-    position: relative;
-  }
-
-  .agent-card::before {
-    content: '▌';
-    position: absolute;
-    top: 0; left: -1px;
-    height: 100%;
-    width: 4px;
-    background: var(--gold);
-    font-size: 0;
-  }
-
-  .agent-card-header {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 5px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    border-bottom: 1px solid var(--mid);
-    padding-bottom: 0.5rem;
-  }
-
-  .agent-card-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 4px 0;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 2px;
-    color: var(--silver);
-  }
-
-  .agent-card-row strong { color: var(--white); }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elad Lyron | Bar-Mitzvah - MIB Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Oswald:wght@500;700&display=swap');
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        .mib-title { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 4px; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .nav-link:hover { color: #9ca3af; transition: 0.3s; }
+        .gallery-img { transition: transform 0.5s ease; cursor: pointer; }
+        .gallery-img:hover { transform: scale(1.03); filter: brightness(1.1); }
+        .tab-active { border-bottom: 2px solid #fff; color: #fff !important; }
+    </style>
 </head>
 <body>
 
-<!-- CLASSIFIED BAR -->
-<div class="classified-bar" data-lang-pt="CLASSIFICADO • AGÊNCIA MIB • ACESSO RESTRITO" data-lang-fr="CLASSIFIÉ • AGENCE MIB • ACCÈS RESTREINT" data-lang-en="CLASSIFIED • MIB AGENCY • RESTRICTED ACCESS">
-  CLASSIFICADO • AGÊNCIA MIB • ACESSO RESTRITO
-</div>
+    <header class="fixed w-full z-50 glass">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="logo font-bold text-xl tracking-tighter">
+                BRU9SK<span class="text-gray-500">FILMS</span>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8 mib-title text-sm">
+                <a href="#home" class="nav-link" data-i18n="nav-home">Home</a>
+                <a href="#familia" class="nav-link" data-i18n="nav-family">Família</a>
+                <a href="#aniversariante" class="nav-link" data-i18n="nav-birthday">Aniversariante</a>
+                <a href="#convidados" class="nav-link" data-i18n="nav-guests">Convidados</a>
+            </nav>
 
-<!-- HEADER -->
-<header id="header">
-  <img src="https://i.ibb.co/YF8xjXZx/Logo-P002.png" alt="Logo" class="header-logo">
+            <div class="flex items-center space-x-4">
+                <select id="langSwitcher" class="bg-transparent border border-gray-700 text-xs p-1 rounded outline-none cursor-pointer">
+                    <option value="pt" class="bg-black">PT</option>
+                    <option value="fr" class="bg-black">FR</option>
+                    <option value="en" class="bg-black">EN</option>
+                </select>
+            </div>
+        </div>
+    </header>
 
-  <div class="header-center">
-    <span class="header-title">ELAD LYRON</span>
-    <span class="header-sub" data-lang-pt="BAR-MITZVAH • 18 ABRIL 2026" data-lang-fr="BAR-MITSVAH • 18 AVRIL 2026" data-lang-en="BAR MITZVAH • APRIL 18, 2026">BAR-MITZVAH • 18 ABRIL 2026</span>
-  </div>
+    <section id="home" class="h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://i.postimg.cc/mZ0fN3pY/IMG-XXXX.jpg" class="w-full h-full object-cover opacity-40" alt="MIB Event">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4">
+            <h2 class="mib-title text-lg md:text-2xl mb-2 text-gray-400" data-i18n="hero-sub">Top Secret Event</h2>
+            <h1 class="mib-title text-5xl md:text-8xl mb-4">ELAD LYRON</h1>
+            <p class="text-xl tracking-widest font-light" data-i18n="hero-date">18 . ABRIL . 2026</p>
+        </div>
+    </section>
 
-  <div class="header-right">
-    <nav>
-      <a class="nav-link active" onclick="showPage('home')" data-lang-pt="HOME" data-lang-fr="ACCUEIL" data-lang-en="HOME">HOME</a>
-      <a class="nav-link" onclick="showPage('familia')" data-lang-pt="FAMÍLIA" data-lang-fr="FAMILLE" data-lang-en="FAMILY">FAMÍLIA</a>
-      <a class="nav-link" onclick="showPage('aniversariante')" data-lang-pt="ANIVERSARIANTE" data-lang-fr="FÊTÉ" data-lang-en="BIRTHDAY BOY">ANIVERSARIANTE</a>
-      <a class="nav-link" onclick="showPage('convidados')" data-lang-pt="CONVIDADOS" data-lang-fr="INVITÉS" data-lang-en="GUESTS">CONVIDADOS</a>
-    </nav>
-    <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('pt')">PT</button>
-      <button class="lang-btn" onclick="setLang('fr')">FR</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
-    </div>
-    <div class="hamburger" onclick="toggleMobileMenu()">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
-</header>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a class="mobile-nav-link active" onclick="showPage('home');toggleMobileMenu()" data-lang-pt="HOME" data-lang-fr="ACCUEIL" data-lang-en="HOME">HOME</a>
-  <a class="mobile-nav-link" onclick="showPage('familia');toggleMobileMenu()" data-lang-pt="FAMÍLIA" data-lang-fr="FAMILLE" data-lang-en="FAMILY">FAMÍLIA</a>
-  <a class="mobile-nav-link" onclick="showPage('aniversariante');toggleMobileMenu()" data-lang-pt="ANIVERSARIANTE" data-lang-fr="FÊTÉ" data-lang-en="BIRTHDAY BOY">ANIVERSARIANTE</a>
-  <a class="mobile-nav-link" onclick="showPage('convidados');toggleMobileMenu()" data-lang-pt="CONVIDADOS" data-lang-fr="INVITÉS" data-lang-en="GUESTS">CONVIDADOS</a>
-</div>
-
-<!-- =================== HOME PAGE =================== -->
-<div id="page-home" class="page active">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <span class="hero-badge" data-lang-pt="✦ AUTORIZADO E CERTIFICADO ✦ AGENTE SÊNIOR EM COMANDO ✦" data-lang-fr="✦ AUTORISÉ ET CERTIFIÉ ✦ AGENT PRINCIPAL EN CHARGE ✦" data-lang-en="✦ AUTHORIZED AND CERTIFIED ✦ SENIOR AGENT IN CHARGE ✦">✦ AUTORIZADO E CERTIFICADO ✦ AGENTE SÊNIOR EM COMANDO ✦</span>
-      <h1 class="hero-name">ELAD<br><span>LYRON</span></h1>
-      <p class="hero-event">Bar-Mitzvah</p>
-      <div class="hero-divider"></div>
-      <p class="hero-date">18.04.2026 — SALLE DES WAIDES — LIÈGE</p>
-    </div>
-    <div class="scroll-indicator">
-      <span data-lang-pt="SCROLL" data-lang-fr="DÉFILER" data-lang-en="SCROLL">SCROLL</span>
-    </div>
-  </section>
-
-  <!-- HIGHLIGHTS -->
-  <section>
-    <div class="section-header">
-      <span class="section-label" data-lang-pt="✦ GALERIA ESPECIAL ✦" data-lang-fr="✦ GALERIE SPÉCIALE ✦" data-lang-en="✦ SPECIAL GALLERY ✦">✦ GALERIA ESPECIAL ✦</span>
-      <h2 class="section-title" data-lang-pt="DESTAQUES" data-lang-fr="TEMPS FORTS" data-lang-en="HIGHLIGHTS">DESTAQUES</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="highlights-grid" id="highlights-gallery">
-      <div class="highlight-item"><img src="https://i.ibb.co/5Wg2PgK2/d001.jpg" alt="Destaque 1" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/pByMHmCL/d002.jpg" alt="Destaque 2" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/HTJrZF5v/d003.jpg" alt="Destaque 3" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/Mkndd96W/d004.jpg" alt="Destaque 4" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/RpKnw9Gs/d006.jpg" alt="Destaque 5" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/k2NLxhRN/d007.jpg" alt="Destaque 6" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/zWpF71T8/d008.jpg" alt="Destaque 7" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/N2V49VkT/d009.jpg" alt="Destaque 8" onclick="openLightbox(this)"></div>
-      <div class="highlight-item"><img src="https://i.ibb.co/ynxCGsy4/d016.jpg" alt="Destaque 9" onclick="openLightbox(this)"></div>
-    </div>
-  </section>
-
-  <!-- TABS -->
-  <section class="tabs-section">
-    <div class="section-header" style="padding-top:2rem;">
-      <span class="section-label" data-lang-pt="✦ POR CATEGORIA ✦" data-lang-fr="✦ PAR CATÉGORIE ✦" data-lang-en="✦ BY CATEGORY ✦">✦ POR CATEGORIA ✦</span>
-      <h2 class="section-title" data-lang-pt="ÁLBUM COMPLETO" data-lang-fr="ALBUM COMPLET" data-lang-en="FULL ALBUM">ÁLBUM COMPLETO</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="tabs-nav">
-      <button class="tab-btn active" onclick="showTab('familia')" data-lang-pt="Família" data-lang-fr="Famille" data-lang-en="Family">Família</button>
-      <button class="tab-btn" onclick="showTab('recepcao')" data-lang-pt="Recepção" data-lang-fr="Réception" data-lang-en="Reception">Recepção</button>
-      <button class="tab-btn" onclick="showTab('convidados-tab')" data-lang-pt="Convidados" data-lang-fr="Invités" data-lang-en="Guests">Convidados</button>
-      <button class="tab-btn" onclick="showTab('discurso')" data-lang-pt="Discurso" data-lang-fr="Discours" data-lang-en="Speech">Discurso</button>
-      <button class="tab-btn" onclick="showTab('pista')" data-lang-pt="Pista de Dança" data-lang-fr="Piste de Danse" data-lang-en="Dance Floor">Pista de Dança</button>
-      <button class="tab-btn" onclick="showTab('decoracao')" data-lang-pt="Decoração" data-lang-fr="Décoration" data-lang-en="Decoration">Decoração</button>
-    </div>
-
-    <!-- TAB: FAMÍLIA -->
-    <div class="tab-content active" id="tab-familia">
-      <div class="gallery-grid">
-        <div class="gallery-item"><img src="https://i.ibb.co/sd54BZ3y/20260418-222436.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/xqqpj2wJ/20260418-222427.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/KpdkXSqr/20260418-222450.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/cchLcNfp/20260418-222454.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/C5xvDmsL/IMG-1274.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/PsHH8C0X/IMG-1275.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/nMHFpQ2j/IMG-1276.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Y4RPTFZN/IMG-1277.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/DxZVJNF/IMG-1279.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/gMynmFb1/IMG-1280.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/NgQLGd0G/IMG-1281.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/mrrhhPDG/IMG-1282.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/tpTDb3nn/IMG-1283.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/RTXsYYJh/IMG-1322.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Xr3dBNj3/Familia001.png" onclick="openLightbox(this)"></div>
-      </div>
-    </div>
-
-    <!-- TAB: RECEPÇÃO -->
-    <div class="tab-content" id="tab-recepcao">
-      <div class="gallery-grid">
-        <div class="gallery-item"><img src="https://i.ibb.co/hFYNHgpy/IMG-1285.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Ndn36gqB/IMG-1284.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Y5wZPNv/IMG-1286.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/27w7wFXH/IMG-1300.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/GQ7ZfVM2/IMG-1301.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/G49SrC2y/IMG-1302.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/KcmLnxX0/IMG-1303.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/pvfkrxqT/IMG-1304.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Fk7hxxyb/IMG-1305.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/YTwWHwqh/IMG-1306.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/dJp1v8Rd/IMG-1307.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Dgf76ZXM/IMG-1308.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/n8trk8mD/IMG-1309.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/q3JTFBDT/IMG-1310.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/prxv9rMv/IMG-1314.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/C3FLtgxC/IMG-1316.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/hRJtrJMh/IMG-1318.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/FkC0gwmJ/20260418-190205.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/ZRdZHc4z/20260418-190234.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/MDCKgJ6d/20260418-190238.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/vxDmQrQs/20260418-195851.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/bnwdFL8/IMG-1323.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Nv3hJnJ/IMG-1324.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/ZRqc0J31/IMG-1325.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/GfJDdggv/IMG-1329.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/wFWJ69LY/IMG-1330.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/DfyzP2b3/IMG-1331.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Mxg4g2b0/IMG-1332.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/84mn6R5h/IMG-1333.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Mkn7M0W8/IMG-1334.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/jPsTPskj/IMG-1337.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Rkz1wMBH/IMG-1264.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/67NK7c1k/IMG-1272.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/zhMnwtph/IMG-1273.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/nNFf4G2n/IMG-1287.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/6JN5sBZc/IMG-1299.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/9kcbw7Js/IMG-1311.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/V060zpKm/IMG-1312.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/k2d4nTZ8/IMG-1313.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/5ggrZZ1H/IMG-1321.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Ps71cTQ6/IMG-1336.jpg" onclick="openLightbox(this)"></div>
-      </div>
-    </div>
-
-    <!-- TAB: CONVIDADOS -->
-    <div class="tab-content" id="tab-convidados-tab">
-      <div class="gallery-grid">
-        <div class="gallery-item"><img src="https://i.ibb.co/fzvWyMdj/Convidados001.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Z63nYy1h/Convidados002.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/XrZ93bLX/Convidados003.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Q3524RgP/Convidados004.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/hx0J97RH/Convidados005.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/d0CFJydD/Convidados006.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/jkvzhBpW/Convidados007.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/93ZgbHMy/Convidados008.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/nMTPqNpL/Convidados009.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/qLtwjx5w/Convidados011.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/0jTGhPLM/Convidados010.png" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Y4sPHtgS/Convidados012.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/whQkvLZf/Convidados013.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/3yLvppJr/Convidados014.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/hxvRkWjy/Convidados015.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/rRVq34cf/Convidados016.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/CKcj20xT/Convidados017.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/snqFcMD/Convidados018.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/KcvWJ0rY/Convidados019.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/spPG2jYM/Convidados020.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/SwqmC9Qr/Convidados021.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/39ktrW10/Convidados022.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/v6JWnDsb/Convidados023.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/k6vx8tss/Convidados024.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/zhGJgLPw/Convidados025.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/RkKPDCCt/Convidados026.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/hR4YMCQN/Convidados027.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Y4TZW1J6/Convidados028.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/xtDhZg5T/Convidados029.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/nsZhmsmH/Convidados030.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/v6Vy0LHK/Convidados031.jpg" onclick="openLightbox(this)"></div>
-      </div>
-    </div>
-
-    <!-- TAB: DISCURSO -->
-    <div class="tab-content" id="tab-discurso">
-      <div class="gallery-grid">
-        <div class="gallery-item"><img src="https://i.ibb.co/Y4tmr207/20260418-202446.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/pvLhBSF2/20260418-202435.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/YTKP6WWM/20260418-202704.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/vC0h06VZ/20260418-202449.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/20D0BHBy/20260418-202709.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/zVLBgMV1/20260418-202720.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/zW0pWVgT/20260418-202817.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/vC4rynVS/20260418-202820.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/nNGxM84S/20260418-202859.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/JjC50kyy/20260418-202920.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/JW6dw3Mr/20260418-202922.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/60nmZP9Y/20260418-220129.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Nd5rS5XW/20260418-220147.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/3b698LW/20260418-221328.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/twjPtzfX/20260418-221339.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/j9wQFBBN/20260418-221357.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/zTjH4C8S/20260418-221502.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/wFkmJwRK/20260418-221457.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/d1c6KF6/20260418-225902.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/3YGzT0JP/20260418-225911.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/MDtkCFTn/20260418-225916.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/xqgrTpXf/20260418-225920.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/4wWsC21q/20260418-225924.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/mCkPbcc5/20260418-225930.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/VYPDQJ8R/20260418-225948.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/jcLtNY5/20260418-225954.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/PvKZzvs5/20260418-230003.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/VWj4bCNs/20260418-230047.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/27Rmw3tB/IMG-1434.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/7dVZbHpy/IMG-1435.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/9993mPwX/IMG-1436.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/gM2CKDw5/IMG-1438.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/mdZCK5p/IMG-1439.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/pBfYKxkY/IMG-1440.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/pvGBD499/IMG-1442.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/BMghrzN/IMG-1444.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Zz7p6q9y/IMG-1445.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/7xBnx1JJ/IMG-1447.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/DDTFtM53/IMG-1452.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/VcWgtvPD/IMG-1455.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/35K3cxz2/IMG-1461.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/v6gpqc0d/IMG-1522.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/nsfWLdbD/IMG-1528.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/5hHQ5Cmz/IMG-1530.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Ng21c1nJ/IMG-1531.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/W4ybHB3p/IMG-1533.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/FbjkTm7y/IMG-1542.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/4ZryGjB2/IMG-1544.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/FqsxsMJm/IMG-1551.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/gF4YKLM6/IMG-1554.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/xtPX6L9T/IMG-1555.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/4n60Zfk5/IMG-1557.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/27KKWxTc/IMG-1559.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/v6WxXgY1/IMG-1560.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/TqkCjhVx/IMG-1566.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/4wKHhfsr/IMG-1567.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/twZtC9xc/IMG-1568.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/BKGPXBQS/IMG-1569.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/tpK7NLTm/IMG-1574.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/7NKqWh0b/IMG-1578.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/KcB5J59T/IMG-1580.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/PzGRK8N1/IMG-1581.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/zW9zNdvq/IMG-1584.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/jvVLkbWN/IMG-1593.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/nqG2QcrC/IMG-1597.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/vCrSs77c/IMG-1600.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/qLJ2kFQs/IMG-1601.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/N6XQyrqm/IMG-1607.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/3y6jJhZN/IMG-1608.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/C5RDX1Kd/IMG-1609.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/1tSJwcWV/IMG-1610.jpg" onclick="openLightbox(this)"></div>
-      </div>
-    </div>
-
-    <!-- TAB: PISTA DE DANÇA -->
-    <div class="tab-content" id="tab-pista">
-      <div class="gallery-grid">
-        <div class="gallery-item"><img src="https://i.ibb.co/0pFnCS9s/20260418-195859.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/xkntxtr/20260418-195904.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Nd4b3v50/20260418-195907.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/9HYKg6rY/20260418-195910.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/d09YZdqn/20260418-195921.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/bgMGRV7m/20260418-195924.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/KjKg6sK7/20260418-200045.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/BHrJGksG/20260418-200044.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/3Y5pwLYQ/20260418-200050.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/gbdx703t/20260418-200153.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/gMDYGJqF/20260418-200158.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/4Rwh2zZY/20260418-200208.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/HDgWSVrN/20260418-200212.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/274x6V1p/20260418-200358.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Df4S830t/20260418-200220.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/KzQyNQR4/20260418-200450.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/XxRS5nT7/20260418-200457.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/671VCCSf/20260418-200611.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/8LZqJ4bQ/20260418-200848.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Pv2b0JRR/20260418-200841.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/PsRZgWDV/20260418-200936.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/zTx08PCM/20260418-200931.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/PZXP26y5/20260418-201101.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/YTcs14Cc/20260418-201220.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/RkVtVmmW/dance001.png" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/rGpWTq0w/Dance002.png" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/JFkBytfX/Dance004.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/dzcjwvP/Dance003.png" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/9HM6xtHr/Dance005.png" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/nqJQYVcp/Dance006.png" onclick="openLightbox(this)"></div>
-      </div>
-    </div>
-
-    <!-- TAB: DECORAÇÃO -->
-    <div class="tab-content" id="tab-decoracao">
-      <div class="gallery-grid">
-        <div class="gallery-item"><img src="https://i.ibb.co/Zpnnz4PS/20260418-181402.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/hFq9zqL5/20260418-181408.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/NnN2kDK9/20260418-181543.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Y4Tspm2k/20260418-181419.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/zTwWZ3mB/20260418-181816.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Gv1Y9fHP/20260418-181810.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Q7fqZCwX/20260418-181828.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/MkzNj9Kh/20260418-181837.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/cKdvxxBq/20260418-182445.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/wN9Sj9Mk/20260418-182457.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/d0Vdzw78/Elad-00.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/whjM9hPf/IMG-1227.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/JwmWQtmD/Elad-00-1.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/6c6VvZdD/IMG-1229.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/gL4BgB03/IMG-1231.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/cS7Qxr0w/IMG-1234.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/zh8115k7/IMG-1232.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/CKQyP75M/IMG-1236.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/ZD8LQKg/IMG-1235.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/BHgDD02Q/IMG-1238.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/XkJLrZT3/IMG-1237.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Zp3Jx4xy/IMG-1240.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/1tNpW8Zy/IMG-1244.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/CFrgtw2/IMG-1251.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/mVbmqSSY/IMG-1252.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/hJvpzLh6/IMG-1254.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/67bYQsxW/IMG-1255.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/j9zwBdd4/IMG-1511.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/GvxPRNtx/IMG-1512.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/whQ4gV39/IMG-1513.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/5ZJK7fY/IMG-1514.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/Gqvt0qz/IMG-1515.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/7JyzbNtN/IMG-1516.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/HL9gbmZP/IMG-1257.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/pFQ1k5t/IMG-1256.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/WpP4z0h2/IMG-1260.jpg" onclick="openLightbox(this)"></div>
-        <div class="gallery-item"><img src="https://i.ibb.co/S4KMZB6W/IMG-1263.jpg" onclick="openLightbox(this)"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <img src="https://i.ibb.co/YF8xjXZx/Logo-P002.png" alt="Logo" class="footer-logo">
-    <p class="footer-tagline" data-lang-pt="Fotografando memórias que duram para sempre" data-lang-fr="Capturer des souvenirs qui durent éternellement" data-lang-en="Capturing memories that last forever">Fotografando memórias que duram para sempre</p>
-    <div class="footer-contacts">
-      <a href="https://wa.me/455135231" target="_blank" class="footer-contact">
-        <span class="footer-contact-label">WhatsApp</span>
-        <span class="footer-contact-value">+45 513 5231</span>
-      </a>
-      <a href="mailto:bru9skfilms@gmail.com" class="footer-contact">
-        <span class="footer-contact-label">Email</span>
-        <span class="footer-contact-value">bru9skfilms@gmail.com</span>
-      </a>
-      <a href="https://instagram.com/bru9skfilms" target="_blank" class="footer-contact">
-        <span class="footer-contact-label">Instagram</span>
-        <span class="footer-contact-value">@bru9skfilms</span>
-      </a>
-    </div>
-    <div class="footer-bottom" data-lang-pt="© 2026 BRU9SK FILMS • TODOS OS DIREITOS RESERVADOS • ELAD LYRON BAR-MITZVAH" data-lang-fr="© 2026 BRU9SK FILMS • TOUS DROITS RÉSERVÉS • ELAD LYRON BAR-MITSVAH" data-lang-en="© 2026 BRU9SK FILMS • ALL RIGHTS RESERVED • ELAD LYRON BAR MITZVAH">
-      © 2026 BRU9SK FILMS • TODOS OS DIREITOS RESERVADOS • ELAD LYRON BAR-MITZVAH
-    </div>
-  </footer>
-</div>
-
-<!-- =================== FAMÍLIA PAGE =================== -->
-<div id="page-familia" class="page">
-  <div class="inner-hero">
-    <div class="inner-hero-bg" style="background-image: url('https://i.ibb.co/Xr3dBNj3/Familia001.png')"></div>
-    <div class="inner-hero-overlay"></div>
-    <div class="inner-hero-content">
-      <span class="inner-badge" data-lang-pt="✦ CAPÍTULO I ✦" data-lang-fr="✦ CHAPITRE I ✦" data-lang-en="✦ CHAPTER I ✦">✦ CAPÍTULO I ✦</span>
-      <h2 class="inner-title" data-lang-pt="FAMÍLIA" data-lang-fr="FAMILLE" data-lang-en="FAMILY">FAMÍLIA</h2>
-      <div class="inner-divider"></div>
-    </div>
-  </div>
-
-  <div class="inner-content">
-    <div class="inner-feature">
-      <div class="feature-photo">
-        <img src="https://i.ibb.co/nsGZbYbS/Familia014.png" alt="Família">
-      </div>
-      <div class="feature-text">
-        <span class="feature-label" data-lang-pt="A ESSÊNCIA DE TUDO" data-lang-fr="L'ESSENCE DE TOUT" data-lang-en="THE ESSENCE OF EVERYTHING">A ESSÊNCIA DE TUDO</span>
-        <h3 class="feature-heading" data-lang-pt="RAÍZES QUE SUSTENTAM" data-lang-fr="RACINES QUI SOUTIENNENT" data-lang-en="ROOTS THAT SUSTAIN">RAÍZES QUE SUSTENTAM</h3>
-
-        <p class="feature-body" id="familia-text-pt">
-          A família é o porto seguro onde cada sonho encontra seu primeiro acolhimento. No dia em que Elad deu mais um passo em sua jornada como homem, foram os olhares familiares que carregaram o peso mais precioso: o orgulho silencioso de quem acompanhou cada momento de crescimento.
-          <br><br>
-          Nos gestos de afeto capturados, nas mãos que se entrelaçam e nos sorrisos que dispensam palavras, reside a memória mais verdadeira dessa noite. A família não apenas celebrou — ela foi a celebração em si.
-          <br><br>
-          Que estas imagens guardem para sempre a força invisível que une os que mais amamos, e que a eternidade deste dia viva em cada olhar registrado.
-        </p>
-        <p class="feature-body" id="familia-text-fr" style="display:none;">
-          La famille est le port sûr où chaque rêve trouve son premier accueil. Le jour où Elad a franchi une nouvelle étape dans son chemin d'homme, ce sont les regards familiaux qui portaient le poids le plus précieux : la fierté silencieuse de ceux qui ont accompagné chaque moment de sa croissance.
-          <br><br>
-          Dans les gestes d'affection capturés, dans les mains entrelacées et les sourires qui se passent de mots, réside le souvenir le plus authentique de cette soirée. La famille n'a pas seulement célébré — elle était la célébration elle-même.
-          <br><br>
-          Que ces images gardent pour toujours la force invisible qui unit ceux que nous aimons le plus.
-        </p>
-        <p class="feature-body" id="familia-text-en" style="display:none;">
-          Family is the safe harbor where every dream finds its first welcome. On the day Elad took another step in his journey as a man, it was family gazes that carried the most precious weight: the silent pride of those who witnessed every moment of his growth.
-          <br><br>
-          In the captured gestures of affection, in hands that intertwine and smiles that need no words, lies the truest memory of this night. Family didn't just celebrate — it was the celebration itself.
-          <br><br>
-          May these images forever preserve the invisible force that binds those we love most.
-        </p>
-      </div>
-    </div>
-
-    <h3 class="gallery-section-title">
-      <span data-lang-pt="GALERIA" data-lang-fr="GALERIE" data-lang-en="GALLERY">GALERIA</span>
-      <span data-lang-pt="FAMÍLIA" data-lang-fr="FAMILLE" data-lang-en="FAMILY">FAMÍLIA</span>
-    </h3>
-    <div class="gallery-grid">
-      <div class="gallery-item"><img src="https://i.ibb.co/sd54BZ3y/20260418-222436.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/xqqpj2wJ/20260418-222427.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/KpdkXSqr/20260418-222450.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/cchLcNfp/20260418-222454.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/C5xvDmsL/IMG-1274.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/PsHH8C0X/IMG-1275.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/nMHFpQ2j/IMG-1276.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/Y4RPTFZN/IMG-1277.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/DxZVJNF/IMG-1279.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/gMynmFb1/IMG-1280.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/NgQLGd0G/IMG-1281.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/mrrhhPDG/IMG-1282.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/tpTDb3nn/IMG-1283.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/RTXsYYJh/IMG-1322.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/Xr3dBNj3/Familia001.png" onclick="openLightbox(this)"></div>
-    </div>
-  </div>
-
-  <footer>
-    <img src="https://i.ibb.co/YF8xjXZx/Logo-P002.png" alt="Logo" class="footer-logo">
-    <div class="footer-contacts">
-      <a href="https://wa.me/455135231" target="_blank" class="footer-contact">
-        <span class="footer-contact-label">WhatsApp</span>
-        <span class="footer-contact-value">+45 513 5231</span>
-      </a>
-      <a href="mailto:bru9skfilms@gmail.com" class="footer-contact">
-        <span class="footer-contact-label">Email</span>
-        <span class="footer-contact-value">bru9skfilms@gmail.com</span>
-      </a>
-      <a href="https://instagram.com/bru9skfilms" target="_blank" class="footer-contact">
-        <span class="footer-contact-label">Instagram</span>
-        <span class="footer-contact-value">@bru9skfilms</span>
-      </a>
-    </div>
-    <div class="footer-bottom">© 2026 BRU9SK FILMS</div>
-  </footer>
-</div>
-
-<!-- =================== ANIVERSARIANTE PAGE =================== -->
-<div id="page-aniversariante" class="page">
-  <div class="inner-hero">
-    <div class="inner-hero-bg" style="background-image: url('https://i.ibb.co/yBx2njbW/IMG-1291.jpg')"></div>
-    <div class="inner-hero-overlay"></div>
-    <div class="inner-hero-content">
-      <span class="inner-badge" data-lang-pt="✦ CAPÍTULO II ✦" data-lang-fr="✦ CHAPITRE II ✦" data-lang-en="✦ CHAPTER II ✦">✦ CAPÍTULO II ✦</span>
-      <h2 class="inner-title" data-lang-pt="ANIVERSARIANTE" data-lang-fr="LE FÊTÉ" data-lang-en="BIRTHDAY BOY">ANIVERSARIANTE</h2>
-      <div class="inner-divider"></div>
-    </div>
-  </div>
-
-  <div class="inner-content">
-    <div class="inner-feature reverse">
-      <div class="feature-photo">
-        <img src="https://i.ibb.co/yBx2njbW/IMG-1291.jpg" alt="Elad Lyron">
-      </div>
-      <div class="feature-text">
-        <span class="feature-label" data-lang-pt="O AGENTE EM COMANDO" data-lang-fr="L'AGENT EN CHARGE" data-lang-en="THE AGENT IN CHARGE">O AGENTE EM COMANDO</span>
-        <h3 class="feature-heading" data-lang-pt="ELAD<br>LYRON" data-lang-fr="ELAD<br>LYRON" data-lang-en="ELAD<br>LYRON">ELAD<br>LYRON</h3>
-
-        <div class="agent-card">
-          <div class="agent-card-header">MIB — FICHA DE AGENTE / FICHE D'AGENT / AGENT FILE</div>
-          <div class="agent-card-row"><span>AGENT</span><strong>ELAD-LYRON CARLOS DA SILVA</strong></div>
-          <div class="agent-card-row"><span>RANK</span><strong>13 ANS — BAR-MITZVAH</strong></div>
-          <div class="agent-card-row"><span>MISSION</span><strong>UNIVERSAL PROTECTION</strong></div>
-          <div class="agent-card-row"><span>DATE</span><strong>18.04.2026</strong></div>
-          <div class="agent-card-row"><span>LOCATION</span><strong>SALLE DES WAIDES — LIÈGE</strong></div>
+    <!-- ===== DESTAQUES SLIDESHOW ===== -->
+    <section class="py-16 px-6">
+        <div class="text-center mb-10">
+            <p class="mib-title text-xs tracking-widest mb-2" style="color:#c9a844;">✦ GALERIA ESPECIAL ✦</p>
+            <h2 class="mib-title text-4xl md:text-5xl">DESTAQUES</h2>
+            <div style="width:80px;height:1px;background:linear-gradient(to right,transparent,#c9a844,transparent);margin:1rem auto 0;"></div>
         </div>
 
-        <p class="feature-body" id="aniv-text-pt">
-          Treze anos. Uma idade que carrega consigo a gravidade de um limiar: o menino que foi, e o jovem homem que está a se tornar. Elad chegou à sua festa com a elegância de quem entende que os grandes momentos merecem ser vividos com presença e intenção.
-          <br><br>
-          Nesta noite de preto e branco, ele foi a cor. Em cada sorriso capturado, em cada pose de confiança crescente, vemos um espírito que já sabe quem é — e ainda tem tanto por descobrir.
-          <br><br>
-          Que as fotografias deste dia sejam o espelho de um jovem extraordinário. Parabéns, Elad.
-        </p>
-        <p class="feature-body" id="aniv-text-fr" style="display:none;">
-          Treize ans. Un âge qui porte en lui la gravité d'un seuil : le garçon qu'il était, et le jeune homme qu'il devient. Elad est arrivé à sa fête avec l'élégance de quelqu'un qui comprend que les grands moments méritent d'être vécus avec présence et intention.
-          <br><br>
-          En cette nuit de noir et blanc, il était la couleur. Dans chaque sourire capturé, dans chaque pose de confiance croissante, nous voyons un esprit qui sait déjà qui il est — et qui a encore tant à découvrir.
-          <br><br>
-          Que les photographies de ce jour soient le miroir d'un jeune homme extraordinaire. Félicitations, Elad.
-        </p>
-        <p class="feature-body" id="aniv-text-en" style="display:none;">
-          Thirteen years. An age that carries the gravity of a threshold: the boy he was, and the young man he is becoming. Elad arrived at his party with the elegance of someone who understands that great moments deserve to be lived with presence and intention.
-          <br><br>
-          On this night of black and white, he was the color. In every smile captured, in every pose of growing confidence, we see a spirit that already knows who he is — and still has so much to discover.
-          <br><br>
-          May the photographs of this day be the mirror of an extraordinary young man. Congratulations, Elad.
-        </p>
-      </div>
-    </div>
+        <div class="relative max-w-5xl mx-auto" style="aspect-ratio:16/7;background:#111;overflow:hidden;">
+            <img id="slide-a" src="" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity 0.9s ease;filter:brightness(0.85);">
+            <img id="slide-b" src="" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.9s ease;filter:brightness(0.85);">
 
-    <h3 class="gallery-section-title">
-      <span data-lang-pt="GALERIA" data-lang-fr="GALERIE" data-lang-en="GALLERY">GALERIA</span>
-      <span data-lang-pt="ANIVERSARIANTE" data-lang-fr="LE FÊTÉ" data-lang-en="BIRTHDAY BOY">ANIVERSARIANTE</span>
-    </h3>
-    <div class="gallery-grid">
-      <div class="gallery-item"><img src="https://i.ibb.co/9HjKZpmW/IMG-1248.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/d0RLDQDV/IMG-1247.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/vxc0Gc0X/IMG-1250.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/yBx2njbW/IMG-1291.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/CK178tgK/IMG-1292.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/fz1N5vVv/IMG-1297.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/5gC2FcNb/IMG-1338.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/8LHt4HyX/IMG-1340.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/qL17pywN/IMG-1341.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/cc20rnnK/IMG-1343.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/TBPHxbCr/IMG-1344.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/S41HKgRG/IMG-1345.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/3Y7mk7MG/IMG-1346.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/S4WV7FM3/IMG-1349.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/ycjFLPwN/IMG-1354.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/9k4VxCft/IMG-1357.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/MWXgR0Z/IMG-1358.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/MkmFYhP5/IMG-1359.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/CT4NfLC/IMG-1361.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/vCJLypcp/IMG-1364.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/8gYXFrzq/IMG-1365.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/7TdyhyP/IMG-1366.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/CswWfKdL/IMG-1367.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/JFFML93b/IMG-1372.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/rG348m9g/IMG-1382.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/xtFGKFHn/IMG-1384.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/XxSsx1mS/IMG-1391.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/Jj8YhMJd/IMG-1400.jpg" onclick="openLightbox(this)"></div>
-    </div>
-  </div>
+            <button onclick="slideshowNav(-1)" style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,0.55);border:1px solid rgba(201,168,68,0.4);color:#c9a844;font-size:1.4rem;width:42px;height:42px;cursor:pointer;display:flex;align-items:center;justify-content:center;">&#8249;</button>
+            <button onclick="slideshowNav(1)"  style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,0.55);border:1px solid rgba(201,168,68,0.4);color:#c9a844;font-size:1.4rem;width:42px;height:42px;cursor:pointer;display:flex;align-items:center;justify-content:center;">&#8250;</button>
 
-  <footer>
-    <img src="https://i.ibb.co/YF8xjXZx/Logo-P002.png" alt="Logo" class="footer-logo">
-    <div class="footer-contacts">
-      <a href="https://wa.me/455135231" target="_blank" class="footer-contact">
-        <span class="footer-contact-label">WhatsApp</span>
-        <span class="footer-contact-value">+45 513 5231</span>
-      </a>
-      <a href="mailto:bru9skfilms@gmail.com" class="footer-contact">
-        <span class="footer-contact-label">Email</span>
-        <span class="footer-contact-value">bru9skfilms@gmail.com</span>
-      </a>
-      <a href="https://instagram.com/bru9skfilms" target="_blank" class="footer-contact">
-        <span class="footer-contact-label">Instagram</span>
-        <span class="footer-contact-value">@bru9skfilms</span>
-      </a>
-    </div>
-    <div class="footer-bottom">© 2026 BRU9SK FILMS</div>
-  </footer>
-</div>
+            <div id="slide-counter" style="position:absolute;top:0.8rem;right:1.2rem;z-index:10;font-family:monospace;font-size:0.6rem;letter-spacing:3px;color:rgba(201,168,68,0.85);"></div>
+            <div id="slide-dots" style="position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:10;"></div>
+        </div>
+    </section>
 
-<!-- =================== CONVIDADOS PAGE =================== -->
-<div id="page-convidados" class="page">
-  <div class="inner-hero">
-    <div class="inner-hero-bg" style="background-image: url('https://i.ibb.co/v6JWnDsb/Convidados023.jpg')"></div>
-    <div class="inner-hero-overlay"></div>
-    <div class="inner-hero-content">
-      <span class="inner-badge" data-lang-pt="✦ CAPÍTULO III ✦" data-lang-fr="✦ CHAPITRE III ✦" data-lang-en="✦ CHAPTER III ✦">✦ CAPÍTULO III ✦</span>
-      <h2 class="inner-title" data-lang-pt="CONVIDADOS" data-lang-fr="INVITÉS" data-lang-en="GUESTS">CONVIDADOS</h2>
-      <div class="inner-divider"></div>
-    </div>
-  </div>
+    <!-- ===== GALERIA POR CATEGORIA ===== -->
+    <section class="pb-20 container mx-auto px-6">
+        <div class="flex flex-wrap justify-center gap-6 mb-12 mib-title text-gray-500 border-b border-gray-800 pb-4">
+            <button onclick="filterGallery('recepcao', event)" class="tab-btn tab-active" data-i18n="tab-reception">Recepção</button>
+            <button onclick="filterGallery('discurso', event)" class="tab-btn" data-i18n="tab-speech">Discurso</button>
+            <button onclick="filterGallery('pista', event)" class="tab-btn" data-i18n="tab-dance">Pista de Dança</button>
+            <button onclick="filterGallery('decoracao', event)" class="tab-btn" data-i18n="tab-decor">Decoração</button>
+        </div>
 
-  <div class="inner-content">
-    <div class="inner-feature">
-      <div class="feature-photo">
-        <img src="https://i.ibb.co/v6JWnDsb/Convidados023.jpg" alt="Convidados">
-      </div>
-      <div class="feature-text">
-        <span class="feature-label" data-lang-pt="A FESTA É O ENCONTRO" data-lang-fr="LA FÊTE C'EST LA RENCONTRE" data-lang-en="THE PARTY IS THE ENCOUNTER">A FESTA É O ENCONTRO</span>
-        <h3 class="feature-heading" data-lang-pt="PRESENÇA QUE<br>TRANSFORMA" data-lang-fr="PRÉSENCE QUI<br>TRANSFORME" data-lang-en="PRESENCE THAT<br>TRANSFORMS">PRESENÇA QUE<br>TRANSFORMA</h3>
+        <div id="main-gallery" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        </div>
+    </section>
 
-        <p class="feature-body" id="conv-text-pt">
-          Cada convidado trouxe consigo uma história, um afeto, uma razão de estar. Naquela noite, as diferenças se dissolveram no ritmo compartilhado da celebração, e cada riso, cada abraço, cada conversa tornou-se parte da memória viva que Elad carregará consigo.
-          <br><br>
-          Os convidados não foram apenas testemunhas — foram co-criadores desta noite. Sua alegria foi o combustível que fez o evento transcender o ordinário, elevando cada momento a algo que vai além da festa.
-          <br><br>
-          Nas fotografias que se seguem, viva de novo a emoção de cada encontro, o calor humano que só acontece quando pessoas especiais se reúnem por amor a alguém especial.
-        </p>
-        <p class="feature-body" id="conv-text-fr" style="display:none;">
-          Chaque invité a apporté avec lui une histoire, une affection, une raison d'être là. Cette nuit-là, les différences se sont dissous dans le rythme partagé de la célébration, et chaque rire, chaque embrassade, chaque conversation est devenu une partie du souvenir vivant qu'Elad portera avec lui.
-          <br><br>
-          Les invités n'étaient pas seulement des témoins — ils étaient des co-créateurs de cette soirée. Leur joie était le carburant qui a fait transcender l'événement, élevant chaque moment à quelque chose qui va au-delà de la fête.
-          <br><br>
-          Dans les photographies qui suivent, revivez l'émotion de chaque rencontre, la chaleur humaine qui ne se produit que lorsque des personnes spéciales se réunissent par amour pour quelqu'un de spécial.
-        </p>
-        <p class="feature-body" id="conv-text-en" style="display:none;">
-          Each guest brought with them a story, an affection, a reason to be there. That night, differences dissolved in the shared rhythm of celebration, and every laugh, every embrace, every conversation became part of the living memory that Elad will carry with him.
-          <br><br>
-          The guests weren't just witnesses — they were co-creators of this night. Their joy was the fuel that made the event transcend the ordinary, elevating each moment to something beyond a party.
-          <br><br>
-          In the photographs that follow, relive the emotion of each encounter, the human warmth that only happens when special people gather out of love for someone special.
-        </p>
-      </div>
-    </div>
+    <section id="familia" class="py-24 bg-[#111]">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="mib-title text-4xl mb-6" data-i18n="fam-title">A Base de Tudo</h2>
+                <p class="text-gray-400 leading-relaxed mb-8 italic" data-i18n="fam-text">
+                    "O Bar-Mitzvah não é apenas uma transição individual, mas um marco que celebra as raízes e o amor incondicional da família."
+                </p>
+                <div class="grid grid-cols-2 gap-4" id="familia-grid">
+                    </div>
+            </div>
+            <div class="h-[600px]">
+                <img src="https://i.postimg.cc/66BHttF/fam-main.jpg" class="w-full h-full object-cover rounded-lg shadow-2xl" alt="Família">
+            </div>
+        </div>
+    </section>
 
-    <h3 class="gallery-section-title">
-      <span data-lang-pt="GALERIA" data-lang-fr="GALERIE" data-lang-en="GALLERY">GALERIA</span>
-      <span data-lang-pt="CONVIDADOS" data-lang-fr="INVITÉS" data-lang-en="GUESTS">CONVIDADOS</span>
-    </h3>
-    <div class="gallery-grid">
-      <div class="gallery-item"><img src="https://i.ibb.co/fzvWyMdj/Convidados001.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/Z63nYy1h/Convidados002.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/XrZ93bLX/Convidados003.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/Q3524RgP/Convidados004.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/hx0J97RH/Convidados005.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/d0CFJydD/Convidados006.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/jkvzhBpW/Convidados007.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/93ZgbHMy/Convidados008.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/nMTPqNpL/Convidados009.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/qLtwjx5w/Convidados011.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/0jTGhPLM/Convidados010.png" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/Y4sPHtgS/Convidados012.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/whQkvLZf/Convidados013.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/3yLvppJr/Convidados014.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/hxvRkWjy/Convidados015.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/rRVq34cf/Convidados016.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/CKcj20xT/Convidados017.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/snqFcMD/Convidados018.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/KcvWJ0rY/Convidados019.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/spPG2jYM/Convidados020.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/SwqmC9Qr/Convidados021.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/39ktrW10/Convidados022.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/v6JWnDsb/Convidados023.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/k6vx8tss/Convidados024.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/zhGJgLPw/Convidados025.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/RkKPDCCt/Convidados026.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/hR4YMCQN/Convidados027.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/Y4TZW1J6/Convidados028.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/xtDhZg5T/Convidados029.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/nsZhmsmH/Convidados030.jpg" onclick="openLightbox(this)"></div>
-      <div class="gallery-item"><img src="https://i.ibb.co/v6Vy0LHK/Convidados031.jpg" onclick="openLightbox(this)"></div>
-    </div>
-  </div>
+    <footer class="py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="mib-title text-2xl mb-8">BRU9SK FILMS</h3>
+            <div class="flex justify-center space-x-8 mb-8">
+                <a href="https://wa.me/455135231" class="text-2xl hover:text-green-500"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://instagram.com/bru9skfilms" class="text-2xl hover:text-pink-500"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:bru9skfilms@gmail.com" class="text-2xl hover:text-blue-500"><i class="far fa-envelope"></i></a>
+            </div>
+            <p class="text-gray-600 text-sm">© 2026 Elad Lyron Bar-Mitzvah. All rights reserved.</p>
+        </div>
+    </footer>
 
-  <footer>
-    <img src="https://i.ibb.co/YF8xjXZx/Logo-P002.png" alt="Logo" class="footer-logo">
-    <div class="footer-contacts">
-      <a href="https://wa.me/455135231" target="_blank" class="footer-contact">
-        <span class="footer-contact-label">WhatsApp</span>
-        <span class="footer-contact-value">+45 513 5231</span>
-      </a>
-      <a href="mailto:bru9skfilms@gmail.com" class="footer-contact">
-        <span class="footer-contact-label">Email</span>
-        <span class="footer-contact-value">bru9skfilms@gmail.com</span>
-      </a>
-      <a href="https://instagram.com/bru9skfilms" target="_blank" class="footer-contact">
-        <span class="footer-contact-label">Instagram</span>
-        <span class="footer-contact-value">@bru9skfilms</span>
-      </a>
-    </div>
-    <div class="footer-bottom">© 2026 BRU9SK FILMS</div>
-  </footer>
-</div>
+    <script>
+        // ============================================================
+        // CONFIGURAÇÃO DE FOTOS — edite aqui os URLs
+        // ============================================================
+        const slideshowImages = [
+            'https://i.ibb.co/5Wg2PgK2/d001.jpg',
+            'https://i.ibb.co/pByMHmCL/d002.jpg',
+            'https://i.ibb.co/HTJrZF5v/d003.jpg',
+            'https://i.ibb.co/Mkndd96W/d004.jpg',
+            'https://i.ibb.co/RpKnw9Gs/d006.jpg',
+            'https://i.ibb.co/k2NLxhRN/d007.jpg',
+            'https://i.ibb.co/zWpF71T8/d008.jpg',
+            'https://i.ibb.co/N2V49VkT/d009.jpg',
+            'https://i.ibb.co/ynxCGsy4/d016.jpg'
+        ];
 
-<!-- LIGHTBOX -->
-<div id="lightbox" onclick="handleLightboxClick(event)">
-  <span id="lightbox-close" onclick="closeLightbox()">✕ FECHAR</span>
-  <button id="lightbox-prev" onclick="lightboxNav(-1)">◀</button>
-  <img id="lightbox-img" src="" alt="">
-  <button id="lightbox-next" onclick="lightboxNav(1)">▶</button>
-</div>
+        const photoData = {
+            recepcao:  [
+                'https://i.ibb.co/hFYNHgpy/IMG-1285.jpg','https://i.ibb.co/Ndn36gqB/IMG-1284.jpg',
+                'https://i.ibb.co/Y5wZPNv/IMG-1286.jpg','https://i.ibb.co/27w7wFXH/IMG-1300.jpg',
+                'https://i.ibb.co/GQ7ZfVM2/IMG-1301.jpg','https://i.ibb.co/G49SrC2y/IMG-1302.jpg',
+                'https://i.ibb.co/KcmLnxX0/IMG-1303.jpg','https://i.ibb.co/pvfkrxqT/IMG-1304.jpg',
+                'https://i.ibb.co/Fk7hxxyb/IMG-1305.jpg','https://i.ibb.co/YTwWHwqh/IMG-1306.jpg',
+            ],
+            discurso:  [
+                'https://i.ibb.co/Y4tmr207/20260418-202446.jpg','https://i.ibb.co/pvLhBSF2/20260418-202435.jpg',
+                'https://i.ibb.co/YTKP6WWM/20260418-202704.jpg','https://i.ibb.co/vC0h06VZ/20260418-202449.jpg',
+                'https://i.ibb.co/20D0BHBy/20260418-202709.jpg','https://i.ibb.co/zVLBgMV1/20260418-202720.jpg',
+                'https://i.ibb.co/27Rmw3tB/IMG-1434.jpg','https://i.ibb.co/7dVZbHpy/IMG-1435.jpg',
+            ],
+            pista:     [
+                'https://i.ibb.co/0pFnCS9s/20260418-195859.jpg','https://i.ibb.co/xkntxtr/20260418-195904.jpg',
+                'https://i.ibb.co/Nd4b3v50/20260418-195907.jpg','https://i.ibb.co/9HYKg6rY/20260418-195910.jpg',
+                'https://i.ibb.co/RkVtVmmW/dance001.png','https://i.ibb.co/rGpWTq0w/Dance002.png',
+                'https://i.ibb.co/JFkBytfX/Dance004.jpg','https://i.ibb.co/9HM6xtHr/Dance005.png',
+            ],
+            decoracao: [
+                'https://i.ibb.co/Zpnnz4PS/20260418-181402.jpg','https://i.ibb.co/hFq9zqL5/20260418-181408.jpg',
+                'https://i.ibb.co/NnN2kDK9/20260418-181543.jpg','https://i.ibb.co/Y4Tspm2k/20260418-181419.jpg',
+                'https://i.ibb.co/zTwWZ3mB/20260418-181816.jpg','https://i.ibb.co/Gv1Y9fHP/20260418-181810.jpg',
+                'https://i.ibb.co/d0Vdzw78/Elad-00.jpg','https://i.ibb.co/whjM9hPf/IMG-1227.jpg',
+            ],
+        };
+        // ============================================================
 
-<script>
-  // ---- LANGUAGE ----
-  let currentLang = 'pt';
+        // ---------- SLIDESHOW ----------
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
 
-  function setLang(lang) {
-    currentLang = lang;
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+        const imgs   = shuffle(slideshowImages);
+        let   sIdx   = 0;
+        let   active = 'a'; // qual img está visível
+        const elA    = document.getElementById('slide-a');
+        const elB    = document.getElementById('slide-b');
+        const dots   = document.getElementById('slide-dots');
+        const ctr    = document.getElementById('slide-counter');
 
-    document.querySelectorAll(`[data-lang-${lang}]`).forEach(el => {
-      el.textContent = el.getAttribute(`data-lang-${lang}`);
-    });
+        // pré-carrega e cria dots
+        imgs.forEach((src, i) => {
+            new Image().src = src;
+            const d = document.createElement('div');
+            d.style.cssText = `width:7px;height:7px;border-radius:50%;cursor:pointer;transition:background .3s;background:${i===0?'#c9a844':'rgba(255,255,255,0.3)'};`;
+            d.onclick = () => goTo(i);
+            dots.appendChild(d);
+        });
 
-    // Long text blocks
-    ['familia', 'aniv', 'conv'].forEach(prefix => {
-      ['pt','fr','en'].forEach(l => {
-        const el = document.getElementById(`${prefix}-text-${l}`);
-        if (el) el.style.display = l === lang ? '' : 'none';
-      });
-    });
-  }
+        function updateDots(i) {
+            dots.querySelectorAll('div').forEach((d, idx) => {
+                d.style.background = idx === i ? '#c9a844' : 'rgba(255,255,255,0.3)';
+            });
+            ctr.textContent = `${String(i+1).padStart(2,'0')} / ${String(imgs.length).padStart(2,'0')}`;
+        }
 
-  // ---- NAVIGATION ----
-  function showPage(page) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(`page-${page}`).classList.add('active');
+        function goTo(i) {
+            sIdx = (i + imgs.length) % imgs.length;
+            const next = active === 'a' ? elB : elA;
+            const curr = active === 'a' ? elA : elB;
+            next.src     = imgs[sIdx];
+            next.style.opacity = '1';
+            curr.style.opacity = '0';
+            active = active === 'a' ? 'b' : 'a';
+            updateDots(sIdx);
+        }
 
-    document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(l => l.classList.remove('active'));
-    document.querySelectorAll(`[onclick*="showPage('${page}')"]`).forEach(l => l.classList.add('active'));
+        function slideshowNav(dir) { goTo(sIdx + dir); }
 
-    window.scrollTo(0, 0);
-  }
+        // inicializa
+        elA.src = imgs[0];
+        elB.src = imgs[1] || imgs[0];
+        updateDots(0);
 
-  // ---- TABS ----
-  function showTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(`tab-${tabId}`).classList.add('active');
-    event.target.classList.add('active');
-  }
+        // avança a cada 4s
+        let timer = setInterval(() => goTo(sIdx + 1), 4000);
 
-  // ---- MOBILE MENU ----
-  function toggleMobileMenu() {
-    document.getElementById('mobileMenu').classList.toggle('open');
-  }
+        // reinicia o timer ao clicar nas setas/dots
+        document.querySelectorAll('#slide-dots div').forEach(d => {
+            d.addEventListener('click', () => { clearInterval(timer); timer = setInterval(() => goTo(sIdx + 1), 4000); });
+        });
 
-  // ---- LIGHTBOX ----
-  let allImages = [];
-  let currentIndex = 0;
+        // ---------- GALERIA POR CATEGORIA ----------
+        function filterGallery(category, e) {
+            const container = document.getElementById('main-gallery');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('tab-active'));
+            if (e && e.target) e.target.classList.add('tab-active');
 
-  function openLightbox(imgEl) {
-    const parent = imgEl.closest('.gallery-grid, .highlights-grid');
-    if (parent) {
-      allImages = Array.from(parent.querySelectorAll('img'));
-      currentIndex = allImages.indexOf(imgEl);
-    } else {
-      allImages = [imgEl];
-      currentIndex = 0;
-    }
+            container.innerHTML = '';
+            (photoData[category] || []).forEach(url => {
+                container.innerHTML += `<img src="${url}" class="gallery-img w-full h-80 object-cover rounded shadow-lg" alt="">`;
+            });
+        }
 
-    document.getElementById('lightbox-img').src = imgEl.src;
-    document.getElementById('lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
+        // ---------- IDIOMA ----------
+        const translations = {
+            pt: { "nav-home":"Início","nav-family":"Família","nav-birthday":"Aniversariante","nav-guests":"Convidados","hero-sub":"Evento Secreto","tab-reception":"Recepção","tab-speech":"Discurso","tab-dance":"Pista de Dança","tab-decor":"Decoração","fam-title":"A Base de Tudo","fam-text":"O Bar-Mitzvah não é apenas uma transição individual, mas um marco que celebra as raízes e o amor incondicional da família." },
+            fr: { "nav-home":"Accueil","nav-family":"Famille","nav-birthday":"L'Anniversaire","nav-guests":"Invités","hero-sub":"Événement Secret","tab-reception":"Réception","tab-speech":"Discours","tab-dance":"Piste de Danse","tab-decor":"Décoration","fam-title":"La Base de Tout","fam-text":"La Bar-Mitsvah n'est pas seulement une transition individuelle, mais un jalon qui célèbre les racines et l'amour inconditionnel de la famille." },
+            en: { "nav-home":"Home","nav-family":"Family","nav-birthday":"Birthday Boy","nav-guests":"Guests","hero-sub":"Top Secret Event","tab-reception":"Reception","tab-speech":"Speech","tab-dance":"Dance Floor","tab-decor":"Decoration","fam-title":"The Foundation","fam-text":"The Bar Mitzvah is not just an individual transition, but a milestone that celebrates roots and the unconditional love of family." }
+        };
 
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-  }
+        document.getElementById('langSwitcher').addEventListener('change', e => {
+            const t = translations[e.target.value];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const k = el.getAttribute('data-i18n');
+                if (t[k]) el.textContent = t[k];
+            });
+        });
 
-  function handleLightboxClick(e) {
-    if (e.target === document.getElementById('lightbox')) closeLightbox();
-  }
-
-  function lightboxNav(dir) {
-    currentIndex = (currentIndex + dir + allImages.length) % allImages.length;
-    document.getElementById('lightbox-img').src = allImages[currentIndex].src;
-    event.stopPropagation();
-  }
-
-  document.addEventListener('keydown', e => {
-    if (document.getElementById('lightbox').classList.contains('open')) {
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowRight') lightboxNav(1);
-      if (e.key === 'ArrowLeft') lightboxNav(-1);
-    }
-  });
-
-  // ---- SLIDESHOW DESTAQUES ----
-const slideImages = [
-  'https://i.ibb.co/5Wg2PgK2/d001.jpg',
-  'https://i.ibb.co/pByMHmCL/d002.jpg',
-  'https://i.ibb.co/HTJrZF5v/d003.jpg',
-  'https://i.ibb.co/Mkndd96W/d004.jpg',
-  'https://i.ibb.co/RpKnw9Gs/d006.jpg',
-  'https://i.ibb.co/k2NLxhRN/d007.jpg',
-  'https://i.ibb.co/zWpF71T8/d008.jpg',
-  'https://i.ibb.co/N2V49VkT/d009.jpg',
-  'https://i.ibb.co/ynxCGsy4/d016.jpg'
-];
-
-// embaralha aleatoriamente
-function shuffleArray(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-let shuffled = shuffleArray([...slideImages]);
-let slideIndex = 0;
-
-const imgCurrent = document.getElementById('slide-current');
-const imgNext = document.getElementById('slide-next');
-const dotsContainer = document.getElementById('slide-dots');
-const counter = document.getElementById('slide-counter');
-
-// cria dots
-shuffled.forEach((_, i) => {
-  const dot = document.createElement('div');
-  dot.style.cssText = `width:6px;height:6px;border-radius:50%;background:${i===0?'var(--gold)':'rgba(255,255,255,0.3)'};cursor:pointer;transition:background 0.3s;`;
-  dot.onclick = () => goToSlide(i);
-  dotsContainer.appendChild(dot);
-});
-
-function updateDots(idx) {
-  dotsContainer.querySelectorAll('div').forEach((d, i) => {
-    d.style.background = i === idx ? 'var(--gold)' : 'rgba(255,255,255,0.3)';
-  });
-  counter.textContent = `${String(idx+1).padStart(2,'0')} / ${String(shuffled.length).padStart(2,'0')}`;
-}
-
-function goToSlide(idx) {
-  slideIndex = idx;
-  imgNext.src = shuffled[slideIndex];
-  imgNext.style.opacity = '1';
-  imgCurrent.style.opacity = '0';
-  setTimeout(() => {
-    imgCurrent.src = shuffled[slideIndex];
-    imgCurrent.style.opacity = '1';
-    imgNext.style.opacity = '0';
-  }, 850);
-  updateDots(slideIndex);
-}
-
-// inicializa
-imgCurrent.src = shuffled[0];
-imgNext.src = shuffled[1] || shuffled[0];
-updateDots(0);
-
-// avança automaticamente a cada 4 segundos
-setInterval(() => {
-  slideIndex = (slideIndex + 1) % shuffled.length;
-  goToSlide(slideIndex);
-}, 4000);
-</script>
+        // ---------- INICIALIZAÇÃO ----------
+        window.onload = () => filterGallery('recepcao', null);
+    </script>
 </body>
 </html>
